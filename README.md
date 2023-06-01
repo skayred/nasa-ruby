@@ -1,4 +1,4 @@
-# Awesome Project Build with TypeORM
+# GraphQL API for NASA asteroids data
 
 This is the backend part for the NASA test assignment, frontend part can be found [there](https://github.com/skayred/nasa-vue)
 In order to get the project running, you need to pull both projects and build their Docker images:
