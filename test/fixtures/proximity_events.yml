@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  asteroid_id: 1
+  miss_distance: 1.5
+  happened_at: 2023-05-31 11:31:28
+
+two:
+  asteroid_id: 1
+  miss_distance: 1.5
+  happened_at: 2023-05-31 11:31:28

@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nasa_id: MyString
+  name: MyString
+
+two:
+  nasa_id: MyString
+  name: MyString

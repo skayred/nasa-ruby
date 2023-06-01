@@ -1,0 +1,53 @@
+services:
+  db:
+    image: postgres:10.16
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pg:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=nasa
+      - POSTGRES_USER=nasa
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+  nasa-ruby:
+    image: nasa-ruby:0.0.1
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - NASA_API_KEY=${NASA_API_KEY}
+      - DB_HOST=db
+      - DB_NAME=nasa
+      - DB_USERNAME=nasa
+      - DB_PASSWORD=${PG_PASSWORD}
+      - RAILS_ENV=production
+    ports:
+    - "3000:3000"
+  nasa-worker:
+    image: nasa-ruby:0.0.1
+    command: ["bundle", "exec", "sidekiq"]
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - NASA_API_KEY=${NASA_API_KEY}
+      - DB_HOST=db
+      - DB_NAME=nasa
+      - DB_USERNAME=nasa
+      - DB_PASSWORD=${PG_PASSWORD}
+      - RAILS_ENV=production
+  nasa-ui:
+    image: nasa-ui:0.0.1
+    ports:
+      - "8080:80" 
